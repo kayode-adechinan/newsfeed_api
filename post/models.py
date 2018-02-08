@@ -55,6 +55,7 @@ def create_thumbnail(input_image, thumbnail_size=(256, 256)):
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
+    status = models.CharField(null=True, max_length=255)
     content = models.TextField()
     rating = models.IntegerField(null=True)
     like = models.IntegerField(null=True)
@@ -67,6 +68,9 @@ class Post(models.Model):
 
     #def __str__(self):
         #return self.title
+
+    class Meta:
+        ordering = ['-like']
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         """
@@ -86,6 +90,8 @@ class Post(models.Model):
 
         # force update as we just changed something
         super(Post, self).save(force_update=force_update)
+
+
 
 
 
