@@ -14,7 +14,6 @@ gunicorn = "*"
 whitenoise = "*"
 django-filter = "*"
 django-cors-headers = "*"
-flask = "*"
 
 
 [dev-packages]
