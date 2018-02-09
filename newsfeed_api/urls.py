@@ -27,16 +27,15 @@ from rest_framework.authtoken import views as auth_views
 router = routers.DefaultRouter()
 router.register("users", views.UserView)
 router.register("posts", views.PostView)
+router.register("attachments", views.AttachmentView)
 router.register("profiles", views.ProfileView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include(router.urls)),
     path('api-token-auth/', auth_views.obtain_auth_token),
-
-    path('auth_user/', views.auth_user),
-    path('search/<str:query>/', views.search),
     path('search-post/<str:query>/', views.SearchList.as_view()),
+    path('like-post/<int:id>/', views.like_post)
 
 ]
 

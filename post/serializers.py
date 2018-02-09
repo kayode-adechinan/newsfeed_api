@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from post.models import Post, Profile
+from post.models import Post, Profile, Attachment
 
 from django.contrib.auth.models import User
 import random
@@ -57,24 +57,28 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
 
-    #user = UserSerializer(read_only=True)
-    #user_avatar = serializers.ReadOnlyField(source='user.profile.avatar')
-    #author = serializers.CharField(source='user.email')
-    #author = UserSerializer()
     user_avatar = serializers.ImageField(read_only=True, source="user.profile.avatar")
-    # depth = 1
+    user_name = serializers.CharField(read_only=True, source="user.username")
+
+    picture = serializers.ImageField(read_only=True,  source="attachment.picture")
+    video = serializers.FileField(read_only=True,  source="attachment.video")
+
+
 
     class Meta:
         model = Post
-        #fields = "__all__"
-        fields = ["id", "title", "status", "user", "user_avatar", "rating", "content", "like", "picture", "picture_thumbnail",
+        fields = ["id", "title", "status", "user", "user_name", "user_avatar", "rating", "content", "like", "picture",
                   "video"]
+
+
+
+
+class AttachmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Attachment
+        fields = ["id", "post", "picture", "picture_thumbnail", "video"]
         read_only_fields = ['picture_thumbnail']
-
-        #expandable_fields = dict(
-         #   user=UserSerializer,
-        #)
-
 
 
 

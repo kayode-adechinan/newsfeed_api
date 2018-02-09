@@ -53,24 +53,31 @@ def create_thumbnail(input_image, thumbnail_size=(256, 256)):
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=255)
     status = models.CharField(null=True, max_length=255)
     content = models.TextField()
     rating = models.IntegerField(null=True)
     like = models.IntegerField(null=True)
 
-    video = models.FileField("Uploaded video", upload_to=scramble_uploaded_filename, null=True)
-    #video_thumbnail = models.ImageField("Thumbnail of uploaded video", blank=True)
 
-    picture = models.ImageField("Uploaded image", upload_to=scramble_uploaded_filename, null=True)
-    picture_thumbnail = models.ImageField("Thumbnail of uploaded image", blank=True)
 
-    #def __str__(self):
-        #return self.title
+    def __str__(self):
+        return self.title
 
     class Meta:
         ordering = ['-like']
+
+
+
+
+
+
+class Attachment (models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    video = models.FileField("Uploaded video", upload_to=scramble_uploaded_filename, null=True)
+    picture = models.ImageField("Uploaded image", upload_to=scramble_uploaded_filename, null=True)
+    picture_thumbnail = models.ImageField("Thumbnail of uploaded image", blank=True)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         """
@@ -89,8 +96,8 @@ class Post(models.Model):
         #    force_update = True
 
         # force update as we just changed something
-        super(Post, self).save(force_update=force_update)
-
+        super(Attachment, self).save(force_update=force_update)
+        #super(Post, self).save(force_update=force_update)
 
 
 
