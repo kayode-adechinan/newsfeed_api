@@ -35,7 +35,7 @@ urlpatterns = [
     path("", include(router.urls)),
     path('api-token-auth/', auth_views.obtain_auth_token),
     path('search-post/<str:query>/', views.SearchList.as_view()),
-    path('like-post/<int:id>/', views.like_post)
+    path('search-user-posts/<int:userID>/', views.SearchUserPost.as_view()),
 
 ]
 

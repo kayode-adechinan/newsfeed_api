@@ -45,21 +45,12 @@ class SearchList(generics.ListAPIView):
         return posts
 
 
+class SearchUserPost(generics.ListAPIView):
+    serializer_class = PostSerializer
 
-@csrf_exempt
-def like_post(request, id):
-    """
-    Retrieve, update or delete a code snippet.
-    """
-    try:
-        post = Post.objects.get(id=id)
-        post.like = post.like + 1
-        post.save()
+    def get_queryset(self):
 
-    except Post.DoesNotExist:
-        return HttpResponse(status=404)
+        userID = self.kwargs['userID']
 
-    if request.method == 'GET':
-        serializer = PostSerializer(post)
-        return JsonResponse(serializer.data)
-
+        posts = Post.objects.filter( user_id=userID  )
+        return posts
