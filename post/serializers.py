@@ -64,12 +64,11 @@ class PostSerializer(serializers.ModelSerializer):
     video = serializers.FileField(read_only=True,  source="attachment.video")
 
 
-
     class Meta:
         model = Post
         fields = ["id", "title", "status", "user", "user_name", "user_avatar", "rating", "content", "like", "picture",
-                  "video"]
-
+                  "video", "date_formated"]
+        extra_kwargs = {'date_formated': {'read_only': True}}
 
 
 

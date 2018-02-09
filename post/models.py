@@ -59,11 +59,18 @@ class Post(models.Model):
     content = models.TextField()
     rating = models.IntegerField(null=True)
     like = models.IntegerField(null=True)
+    created = models.DateTimeField(auto_now_add=True)
 
 
 
     def __str__(self):
         return self.title
+
+    @property
+    def date_formated(self):
+        return self.created.date();
+
+
 
     class Meta:
         ordering = ['-like']
