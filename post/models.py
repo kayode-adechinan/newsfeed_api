@@ -18,6 +18,17 @@ def scramble_uploaded_filename(instance, filename):
     return "{}.{}".format(uuid.uuid4(), extension)
 
 
+def scramble_video_filename(instance, filename):
+    """
+    Scramble / uglify the filename of the uploaded file, but keep the files extension (e.g., .jpg or .png)
+    :param instance:
+    :param filename:
+    :return:
+    """
+    extension = filename.split(".")[-1]
+    return "{}.{}".format(uuid.uuid4(), extension)
+
+
 def create_thumbnail(input_image, thumbnail_size=(256, 256)):
     """
     Create a thumbnail of an existing image
@@ -72,6 +83,8 @@ class Post(models.Model):
 
 
 
+
+
     class Meta:
         ordering = ['-like']
 
@@ -82,7 +95,7 @@ class Post(models.Model):
 
 class Attachment (models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
-    video = models.FileField("Uploaded video", upload_to=scramble_uploaded_filename, null=True)
+    video = models.FileField("Uploaded video",  null=True)
     picture = models.ImageField("Uploaded image", upload_to=scramble_uploaded_filename, null=True)
     picture_thumbnail = models.ImageField("Thumbnail of uploaded image", blank=True)
 
