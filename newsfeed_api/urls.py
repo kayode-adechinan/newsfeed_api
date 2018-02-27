@@ -36,7 +36,7 @@ urlpatterns = [
     path('api-token-auth/', auth_views.obtain_auth_token),
     path('search-post/<str:query>/', views.SearchList.as_view()),
     path('search-user-posts/<int:userID>/', views.SearchUserPost.as_view()),
-    path('reset-user-password/<int:pk>/', views.UserPasswordReset.as_view())
+    path('reset-user-password/<str:email>/', views.UserPasswordReset.as_view())
 
 ]
 

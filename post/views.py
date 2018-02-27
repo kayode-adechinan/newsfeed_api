@@ -61,14 +61,14 @@ class UserPasswordReset(APIView):
     """
     Set user password.
     """
-    def get_object(self, pk):
+    def get_object(self, email):
         try:
-            return User.objects.get(pk=pk)
+            return User.objects.get(email=email)
         except User.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk, format=None):
-        user = self.get_object(pk)
+    def get(self, request, email, format=None):
+        user = self.get_object(email)
         password = generate_user_password()
         user.set_password(password)
         user.save()
