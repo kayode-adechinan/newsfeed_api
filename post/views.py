@@ -1,15 +1,16 @@
 from django.db.models import Q
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from post.serializers import PostSerializer, UserSerializer, ProfileSerializer, AttachmentSerializer
 from django.contrib.auth.models import User
 from post.models import Post, Profile, Attachment
 from rest_framework import viewsets
-
+from post.helpers import send_password_reset_mail, generate_user_password
 
 
 class PostView(viewsets.ModelViewSet):
@@ -54,3 +55,23 @@ class SearchUserPost(generics.ListAPIView):
 
         posts = Post.objects.filter( user_id=userID  )
         return posts
+
+
+class UserPasswordReset(APIView):
+    """
+    Set user password.
+    """
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        password = generate_user_password()
+        user.set_password(password)
+        user.save()
+        serializer = UserSerializer(user)
+        send_password_reset_mail(user.email, password)
+        return Response(serializer.data)

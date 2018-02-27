@@ -14,6 +14,7 @@ gunicorn = "*"
 whitenoise = "*"
 django-filter = "*"
 django-cors-headers = "*"
+sendgrid = "*"
 
 
 [dev-packages]

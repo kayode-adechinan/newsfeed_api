@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d538baf08660eae02bd3e4cfbe2489a8314c83e4f0aa381e7eb6c4b2a4a1223c"
+            "sha256": "603e05cfec7a4f6a883a9432370ce11ce7257087072abac4869648c1d7922682"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -108,6 +108,13 @@
             ],
             "version": "==5.0.0"
         },
+        "python-http-client": {
+            "hashes": [
+                "sha256:c9571823fb6994793bec520f8dbe8dd74ccdd28072b1fae1ab9fb728728e6619",
+                "sha256:481dd0bb1ae8248e47d16e73642813006025f164e6a715f4b1e53d7ecae17675"
+            ],
+            "version": "==3.0.0"
+        },
         "pytz": {
             "hashes": [
                 "sha256:ed6509d9af298b7995d69a440e2822288f2eca1681b8cce37673dbb10091e5fe",
@@ -121,6 +128,13 @@
                 "sha256:410bcd1d6409026fbaa65d9ed33bf6dd8b1e94a499e32168acfc7b332e4095c0"
             ],
             "version": "==2018.3"
+        },
+        "sendgrid": {
+            "hashes": [
+                "sha256:0fcd4d093355d3880438400886f7b2a132e5e47070ef412f46558c96734493f6",
+                "sha256:36249ab8a14012bf6fb334b75ab9fdf9260ed014149f7f3183a64fa1a7cfa265"
+            ],
+            "version": "==5.3.0"
         },
         "whitenoise": {
             "hashes": [
