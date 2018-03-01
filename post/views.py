@@ -41,7 +41,7 @@ class SearchList(generics.ListAPIView):
         query = self.kwargs['query']
 
         posts = Post.objects.filter(
-            Q(title__icontains=query) | Q(content__icontains=query)
+            Q(title__icontains=query) | Q(content__icontains=query) | Q(user__username__icontains=query) | Q(user__email__icontains=query) 
         )
         return posts
 
